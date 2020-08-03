@@ -17,26 +17,44 @@ function prompts() {
     userLength = parseInt(prompt("How long should your password be? Choose between 8 and 128 characters."));
 
     // Validate userLength
-    if (userLength < 8 || userLength > 128) {
+    while (userLength < 8 || userLength > 128) {
         alert("Invalid input.");
-    } else {
-        // userChoices prompts
+        userLength = parseInt(prompt("How long should your password be? Choose between 8 and 128 characters."));
+    }
+
+    // userChoices prompts and return boolean values into array
+    function userCharPrompts() {
         var userLowerCase = confirm("Include lower case?");
         if (userLowerCase === true) {
             userChoices = userChoices.concat(allLowerCase);
+        } else {
+            userLowerCase = false
         }
         var userUpperCase = confirm("Include upper case?");
         if (userUpperCase === true) {
             userChoices = userChoices.concat(allUpperCase);
+        } else {
+            userUpperCase = false
         }
         var userNumbers = confirm("Include numbers?");
         if (userNumbers === true) {
             userChoices = userChoices.concat(allNumbers);
+        } else {
+            userNumbers = false
         }
         var userSpecialChars = confirm("Include special characters?");
         if (userSpecialChars === true) {
             userChoices = userChoices.concat(allSpecialChars);
+        } else {
+            userSpecialChars = false
         }
+        var userCharPrompts = [userLowerCase, userUpperCase, userNumbers, userSpecialChars];
+        return userCharPrompts;
+    }
+    if (userCharPrompts[0] === false && userCharPrompts[1] === false && userCharPrompts[2] === false && userCharPrompts[3] === false) {
+        alert("You must allow at least one character type.");
+    } else {
+        userCharPrompts();
     }
 }
 
@@ -46,8 +64,6 @@ function generatePassword() {
     for (var i = 0; i < userLength; i++) {
         var randomArrayNumber = Math.floor((Math.random() * userChoices.length));
         password = password + userChoices[randomArrayNumber];
-        console.log(userChoices);
-        console.log(randomArrayNumber);
     }
 }
 
