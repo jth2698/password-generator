@@ -44,8 +44,10 @@ function prompts() {
 function generatePassword() {
     prompts();
     for (var i = 0; i < userLength; i++) {
-        var randomArrayNumber = Math.floor((Math.random() * userChoices.length) + 1);
+        var randomArrayNumber = Math.floor((Math.random() * userChoices.length));
         password = password + userChoices[randomArrayNumber];
+        console.log(userChoices);
+        console.log(randomArrayNumber);
     }
 }
 
