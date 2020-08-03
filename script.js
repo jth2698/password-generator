@@ -10,7 +10,7 @@ var userLength;
 var userChoices = [];
 var password = "";
 
-// Creat function to prompt user for password length and character types and to store answers
+// Create function to prompt user for password length and character types and to store answers
 function prompts() {
 
     // userLength prompt
@@ -22,39 +22,31 @@ function prompts() {
         userLength = parseInt(prompt("How long should your password be? Choose between 8 and 128 characters."));
     }
 
-    // userChoices prompts and return boolean values into array
-    function userCharPrompts() {
-        var userLowerCase = confirm("Include lower case?");
-        if (userLowerCase === true) {
+    // Create user character prompts and return boolean values into array
+    var userLowerCase = confirm("Include lower case?");
+    var userUpperCase = confirm("Include upper case?");
+    var userNumbers = confirm("Include numbers?");
+    var userSpecialChars = confirm("Include special characters?");
+    var userCharPrompts = [userLowerCase, userUpperCase, userNumbers, userSpecialChars];
+
+    // Validate that user has confirmed at least one character set and restart function if not
+    for (var i = 0; i < 1; i++) {
+        if (userCharPrompts[0] === true) {
             userChoices = userChoices.concat(allLowerCase);
-        } else {
-            userLowerCase = false
         }
-        var userUpperCase = confirm("Include upper case?");
-        if (userUpperCase === true) {
+        if (userCharPrompts[1] === true) {
             userChoices = userChoices.concat(allUpperCase);
-        } else {
-            userUpperCase = false
         }
-        var userNumbers = confirm("Include numbers?");
-        if (userNumbers === true) {
+        if (userCharPrompts[2] === true) {
             userChoices = userChoices.concat(allNumbers);
-        } else {
-            userNumbers = false
         }
-        var userSpecialChars = confirm("Include special characters?");
-        if (userSpecialChars === true) {
+        if (userCharPrompts[3] === true) {
             userChoices = userChoices.concat(allSpecialChars);
-        } else {
-            userSpecialChars = false
         }
-        var userCharPrompts = [userLowerCase, userUpperCase, userNumbers, userSpecialChars];
-        return userCharPrompts;
-    }
-    if (userCharPrompts[0] === false && userCharPrompts[1] === false && userCharPrompts[2] === false && userCharPrompts[3] === false) {
-        alert("You must allow at least one character type.");
-    } else {
-        userCharPrompts();
+        if (userCharPrompts[0] === false && userCharPrompts[1] === false && userCharPrompts[2] === false && userCharPrompts[3] === false) {
+            alert("You must allow at least one character type.");
+            prompts();
+        }
     }
 }
 
